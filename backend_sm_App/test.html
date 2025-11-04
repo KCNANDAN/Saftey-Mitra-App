@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Socket.IO Test Client</title>
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+</head>
+<body>
+  <h1>Socket.IO Test Client</h1>
+
+  <label>
+    Server URL:
+    <input id="serverUrl" value="http://localhost:5000" size="30" />
+  </label>
+  <br/><br/>
+  <label>
+    Session Code:
+    <input id="sessionCode" value="TEST_SESSION_1" size="20" />
+  </label>
+  <br/><br/>
+  <button id="connectBtn">Connect</button>
+  <button id="emitBtn" disabled>Send locationUpdate</button>
+
+  <pre id="log"></pre>
+
+  <script>
+    let socket;
+
+    function log(msg, obj) {
+      const pre = document.getElementById('log');
+      pre.textContent += msg + (obj ? " " + JSON.stringify(obj) : "") + "\n";
+      pre.scrollTop = pre.scrollHeight;
+    }
+
+    document.getElementById('connectBtn').onclick = () => {
+      const url = document.getElementById('serverUrl').value;
+      const sessionCode = document.getElementById('sessionCode').value;
+      socket = io(url, { transports: ['websocket'] });
+
+      socket.on('connect', () => {
+        log("[connect] id=" + socket.id);
+        socket.emit('join_session', { sessionCode });
+        log("[join_session] " + sessionCode);
+        document.getElementById('emitBtn').disabled = false;
+      });
+
+      socket.on('server:hello', (data) => {
+        log("[server:hello]", data);
+      });
+
+      socket.on('locationUpdate', (data) => {
+        log("[locationUpdate broadcast]", data);
+      });
+
+      socket.on('disconnect', (reason) => {
+        log("[disconnect] " + reason);
+      });
+    };
+
+    document.getElementById('emitBtn').onclick = () => {
+      const sessionCode = document.getElementById('sessionCode').value;
+      const payload = {
+        user: "test.html-client",
+        latitude: 12.9716 + (Math.random() - 0.5) * 0.001,
+        longitude: 77.5946 + (Math.random() - 0.5) * 0.001,
+        timestamp: new Date().toISOString(),
+        session: sessionCode
+      };
+      log("[emit] locationUpdate", payload);
+      socket.emit('locationUpdate', payload, (ack) => {
+        log("[ack]", ack);
+      });
+    };
+  </script>
+</body>
+</html>

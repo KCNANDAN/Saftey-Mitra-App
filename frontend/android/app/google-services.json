@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "800586548586",
+    "project_id": "frontend-3adf1",
+    "storage_bucket": "frontend-3adf1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:800586548586:android:4bcb56a3c7570a92c9d113",
+        "android_client_info": {
+          "package_name": "com.example.frontend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOjEUDyhmmiv0UNEknrjzbv68I8IlamOQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
