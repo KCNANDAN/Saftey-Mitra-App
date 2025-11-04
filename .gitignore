@@ -1,0 +1,38 @@
+# -------------------------------
+# 🚀 General
+# -------------------------------
+.DS_Store
+Thumbs.db
+.env
+*.log
+
+# -------------------------------
+# ⚙️ Node.js (Backend & Frontend)
+# -------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dist/
+build/
+package-lock.json
+
+# -------------------------------
+# 🧩 Flutter (Frontend)
+# -------------------------------
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+android/.gradle/
+ios/Pods/
+
+# -------------------------------
+# 💻 IDEs & Editors
+# -------------------------------
+.vscode/
+.idea/
+*.iml
